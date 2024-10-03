@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | Viberverse</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="/" class="logo">
+        <img src="/media/logo.png" />
+      </a>
+      <a href="games.html" class="nav-link">
+        <img src="/media/games.svg" class="nav-link-icon" />
+        <div class="nav-link-name">GAMES</div>
+      </a>
+      <a href="proxies.html" class="nav-link">
+        <img src="/media/proxies.svg" class="nav-link-icon" />
+        <div class="nav-link-name">PROXIES</div>
+      </a>
+      <a href="chat.html" class="nav-link">
+        <img src="/media/chat.svg" class="nav-link-icon" />
+        <div class="nav-link-name">CHAT</div>
+      </a>
+      <a href="settings.html" class="nav-link">
+        <img src="/media/settings.svg" class="nav-link-icon" />
+        <div class="nav-link-name">SETTINGS</div>
+      </a>
+      <a href="about.html" class="nav-link">
+        <img src="/media/info.svg" class="nav-link-icon" />
+        <div class="nav-link-name">ABOUT</div>
+      </a>
+    </nav>
+    <div class="wrap">
+      <h1 class="title">SETTINGS</h1>
+      <p class="description">
+        Customize Viberverse with Themes, Tab Namer, and Panic Key.
+      </p>
+      <h2 class="subheading">Themes</h2>
+      <select name="themes" id="themes" class="dropdown">
+        <option value="dark">Orange (Default)</option>
+        <option value="blue">Blue</option>
+        <option value="yellow">Yellow</option>
+      </select>
+      <h2 class="subheading">Tab Namer</h2>
+      <select name="tab" id="tab" class="dropdown">
+        <option value="Settings | Viberverse">Viberverse (Default)</option>
+        <option value="Home | Schoology">Schoology</option>
+        <option value="Google">Google</option>
+        <option value="New Tab">New Tab</option>
+      </select>
+      <input
+        type="text"
+        class="input"
+        id="tab-input"
+        placeholder="Choose from above or set here"
+      />
+      <h2 class="subheading">Panic Key</h2>
+      <input
+        type="text"
+        class="input"
+        id="panic"
+        placeholder="Set your panic key (default is `)"
+      />
+      <input
+        type="text"
+        class="input"
+        id="panic-href"
+        placeholder="Set your panic redirect url"
+      />
+    </div>
+    <footer class="footer">
+      &copy; 2024 Viberverse.&nbsp;&nbsp;&nbsp;All rights reserved.
+    </footer>
+    <script>
+      const titleTag = document.getElementsByTagName("title")[0];
+      const tabDropdown = document.getElementById("tab");
+      tabDropdown.onclick = () => {
+        titleTag.innerHTML = tabDropdown.value;
+        localStorage.setItem("tab-name", "");
+        if (tabDropdown.value !== "Settings | Viberverse") {
+          localStorage.setItem("tab-name", tabDropdown.value);
+        }
+      };
+      const themeDropdown = document.getElementById("themes");
+      const root = document.documentElement.style;
+      themeDropdown.onchange = () => {
+        if (themeDropdown.value === "blue") {
+          root.setProperty("--primary-color", "#2A9FD6");
+          root.setProperty("--text-shadow", "#1d7096");
+        } else if (themeDropdown.value === "dark") {
+          root.setProperty("--primary-color", "#FF6442");
+          root.setProperty("--text-shadow", "#9a3a25");
+        } else if (themeDropdown.value === "yellow") {
+          root.setProperty("--primary-color", "#ffea00");
+          root.setProperty("--text-shadow", "#817700");
+        }
+        localStorage.setItem("theme", themeDropdown.value);
+      };
+      if (localStorage.getItem("theme") === "blue") {
+        themeDropdown.value = "blue";
+        root.setProperty("--primary-color", "#2A9FD6");
+        root.setProperty("--text-shadow", "#1d7096");
+      } else if (localStorage.getItem("theme") === "yellow") {
+        themeDropdown.value = "yellow";
+        root.setProperty("--primary-color", "#ffea00");
+        root.setProperty("--text-shadow", "#817700");
+      }
+      const tabInput = document.getElementById("tab-input");
+      let titleStorage = localStorage.getItem("tab-name");
+      if (titleStorage && titleStorage !== "") {
+        titleTag.innerHTML = titleStorage;
+      }
+      tabInput.addEventListener("keyup", () => {
+        titleTag.innerHTML = tabInput.value;
+        localStorage.setItem("tab-name", tabInput.value);
+      });
+      const panicInput = document.getElementById("panic");
+      panicInput.addEventListener("keyup", () => {
+        if (panicInput.value.length === 1) {
+          localStorage.setItem("panic", panicInput.value);
+          console.log(localStorage.getItem("panic"));
+        }
+      });
+      document.addEventListener("keydown", (e) => {
+        let panicStorage = localStorage.getItem("panic");
+        let panicHref = localStorage.getItem("panicHref")
+          ? localStorage.getItem("panicHref")
+          : "https://google.com";
+        if (
+          (panicStorage && e.key === panicStorage) ||
+          (!panicStorage && e.key === "`")
+        ) {
+          window.location.href = panicHref;
+        }
+      });
+      const panicHrefInput = document.getElementById("panic-href");
+      panicHrefInput.addEventListener("keyup", () => {
+        if (panicHrefInput.value.includes("http")) {
+          localStorage.setItem("panicHref", panicHrefInput.value);
+        } else {
+          localStorage.setItem("panicHref", "https://" + panicHrefInput.value);
+        }
+      });
+    </script>
+  </body>
+</html>

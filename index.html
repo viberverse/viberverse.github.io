@@ -1,1 +1,119 @@
-skibidi toilet gyatt rizzler ohio sigma
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Viberverse</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="/" class="logo">
+        <img src="/media/logo.png" />
+      </a>
+      <a href="games.html" class="nav-link">
+        <img src="/media/games.svg" class="nav-link-icon" />
+        <div class="nav-link-name">GAMES</div>
+      </a>
+      <a href="proxies.html" class="nav-link">
+        <img src="/media/proxies.svg" class="nav-link-icon" />
+        <div class="nav-link-name">PROXIES</div>
+      </a>
+      <a href="chat.html" class="nav-link">
+        <img src="/media/chat.svg" class="nav-link-icon" />
+        <div class="nav-link-name">CHAT</div>
+      </a>
+      <a href="settings.html" class="nav-link">
+        <img src="/media/settings.svg" class="nav-link-icon" />
+        <div class="nav-link-name">SETTINGS</div>
+      </a>
+      <a href="about.html" class="nav-link">
+        <img src="/media/info.svg" class="nav-link-icon" />
+        <div class="nav-link-name">ABOUT</div>
+      </a>
+    </nav>
+    <div class="wrap">
+      <div class="message" id="message"></div>
+      <div class="links">
+        <a href="games.html" class="link">
+          <img src="media/games.svg" class="link-thumb" />
+          Games
+        </a>
+        <a href="proxies.html" class="link">
+          <img src="media/proxies.svg" class="link-thumb" />
+          Proxies
+        </a>
+        <a href="chat.html" class="link">
+          <img src="media/chat.svg" class="link-thumb" />
+          Chat
+        </a>
+        <a href="settings.html" class="link">
+          <img src="media/settings.svg" class="link-thumb" />
+          Settings
+        </a>
+        <a href="about.html" class="link">
+          <img src="media/info.svg" class="link-thumb" />
+          About
+        </a>
+      </div>
+    </div>
+    <footer class="footer">
+      &copy; 2024 Viberverse.&nbsp;&nbsp;&nbsp;All rights reserved.
+    </footer>
+    <script>
+      const titleTag = document.getElementsByTagName("title")[0];
+      if (localStorage.getItem("tab-name")) {
+        titleTag.innerHTML = localStorage.getItem("tab-name");
+      }
+      const message = document.getElementById("message");
+      const messages = [
+        "There's only proxies and hit games on Viberverse!",
+        "Good vibes only here.",
+        "Remember to allow popup in your browser to open Viberverse in about:blank.",
+        "More things coming soon!",
+        'Go to the <a href="settings.html">settings</a> tab and customize your Viberverse!',
+        "Did you know that Viberverse was released on October 17th, 2024?",
+        "Made for students, by students.",
+        "Proxies and Chat coming soon!",
+        "Go to the About tab to submit feedback on Viberverse!",
+        "Go to the About tab to check out our plans for Viberverse!",
+        "We have over 100 popular web games, with more coming your way!"
+      ];
+      message.innerHTML = messages[Math.floor(Math.random() * 11)];
+      /*const win = window.open();
+const iframe = win.document.createElement("iframe");
+const iframeSrc = window.location.href;
+win.document.body.style.margin = "0";
+win.document.body.style.height = "100vh";
+iframe.style.border = "none";
+iframe.style.width = "100%";
+iframe.style.height = "100%";
+iframe.style.margin = "0";
+iframe.referrerpolicy = "no-referrer";
+iframe.allow = "fullscreen";
+iframe.src = iframeSrc;
+win.document.body.appendChild(iframe);*/
+      const root = document.documentElement.style;
+      if (localStorage.getItem("theme") === "blue") {
+        root.setProperty("--primary-color", "#2A9FD6");
+        root.setProperty("--text-shadow", "#1d7096");
+      } else if (localStorage.getItem("theme") === "yellow") {
+        root.setProperty("--primary-color", "#ffea00");
+        root.setProperty("--text-shadow", "#817700");
+      }
+      document.addEventListener("keydown", (e) => {
+        let panicStorage = localStorage.getItem("panic");
+        let panicHref = localStorage.getItem("panicHref")
+          ? localStorage.getItem("panicHref")
+          : "https://google.com";
+        if (
+          (panicStorage && e.key === panicStorage) ||
+          (!panicStorage && e.key === "`")
+        ) {
+          window.location.href = panicHref;
+        }
+      });
+    </script>
+  </body>
+</html>

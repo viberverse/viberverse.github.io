@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Viberverse</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="/" class="logo">
+        <img src="/media/logo.png" />
+      </a>
+      <a href="games.html" class="nav-link">
+        <img src="/media/games.svg" class="nav-link-icon" />
+        <div class="nav-link-name">GAMES</div>
+      </a>
+      <a href="proxies.html" class="nav-link">
+        <img src="/media/proxies.svg" class="nav-link-icon" />
+        <div class="nav-link-name">PROXIES</div>
+      </a>
+      <a href="chat.html" class="nav-link">
+        <img src="/media/chat.svg" class="nav-link-icon" />
+        <div class="nav-link-name">CHAT</div>
+      </a>
+      <a href="settings.html" class="nav-link">
+        <img src="/media/settings.svg" class="nav-link-icon" />
+        <div class="nav-link-name">SETTINGS</div>
+      </a>
+      <a href="about.html" class="nav-link">
+        <img src="/media/info.svg" class="nav-link-icon" />
+        <div class="nav-link-name">ABOUT</div>
+      </a>
+    </nav>
+    <div class="wrap">
+      <h1 class="title">ABOUT</h1>
+      <p class="description">
+        Viberverse is the best website to cure your boredom at school. With our
+        200+ collection of some of the most popular web games, several powerful
+        proxies that unblock anything, premium global chat, and more. This
+        website is being developed by a group of students, for students. Have
+        feedback? Submit it
+        <a
+          href="https://forms.gle/hF9CDPV1cKUegHMS7"
+          target="_blank"
+          class="feedback"
+          >here</a
+        >!
+      </p>
+      <h2 class="subheading">Plans</h2>
+      <ul>
+        <li>Add different color logos for Themes.</li>
+        <li>Add preset favicons in Tab Namer.</li>
+        <li>Add custom favicon input in Tab Namer.</li>
+        <li>Add more proxies.</li>
+        <li>Add more games.</li>
+        <li>Add emulators.</li>
+        <li>Add movies.</li>
+        <li>Add a soundboard.</li>
+        <li>Add more settings.</li>
+      </ul>
+      <h2 class="subheading">Update Log</h2>
+      <h3 class="section-title">v.0.13.0&nbsp;&nbsp;&nbsp;10/2/2024</h3>
+      <ul>
+        <li>Officially released on GitHub.</li>
+        <li>Added a new proxy.</li>
+        <li>Bug fixes and performance improvements.</li>
+        <li>Slight UI tweaks.</li>
+      </ul>
+      <h3 class="section-title">v.0.12.0&nbsp;&nbsp;&nbsp;9/30/2024</h3>
+      <ul>
+        <li>Applied new UI to 30 games.</li>
+        <li>Optimized 30 games.</li>
+        <li>Added new links on the homepage.</li>
+        <li>Added the Plans section in the About tab.</li>
+        <li>Added feedback link in the About tab.</li>
+        <li>Fixed a bug from Tab Namer.</li>
+        <li>Fixed a bug from Panic Key.</li>
+        <li>Updated messages on the homepage.</li>
+        <li>Small UI tweaks.</li>
+      </ul>
+      <h3 class="section-title">v.0.9.0&nbsp;&nbsp;&nbsp;9/29/2024</h3>
+      <ul>
+        <li>Added Settings in the Settings tab.</li>
+        <li>Added Themes feature in the Settings tab.</li>
+        <li>Added Tab Namer feature in the Settings tab.</li>
+        <li>Added Panic Key feature in the Settings tab.</li>
+        <li>Small UI tweaks.</li>
+      </ul>
+      <h3 class="section-title">v.0.6.0&nbsp;&nbsp;&nbsp;9/28/2024</h3>
+      <ul>
+        <li>Added 116 games.</li>
+        <li>Added the thumbnails for the new games on the Games tab.</li>
+        <li>Added the Fullscreen feature.</li>
+        <li>Added a new UI for the games.</li>
+        <li>Added the Search feature on the Games tab.</li>
+        <li>Added descriptions for the Games and About tabs.</li>
+        <li>Added a new logo and some icons.</li>
+        <li>Added Chat and About tabs.</li>
+        <li>Added Update Log.</li>
+        <li>Small UI tweaks.</li>
+      </ul>
+      <h3 class="section-title">v.0.1.0&nbsp;&nbsp;&nbsp;9/27/2024</h3>
+      <ul>
+        <li>Created the Viberverse website.</li>
+        <li>Created the Viberverse organization on GitHub.</li>
+        <li>Created the Viberverse repository on GitHub.</li>
+        <li>Added a new UI for the website.</li>
+        <li>Added the Games, Proxies, and Settings tabs.</li>
+        <li>Added some icons.</li>
+        <li>Added links on the homepage.</li>
+        <li>Added different messages to show on the homepage.</li>
+      </ul>
+    </div>
+    <footer class="footer">
+      &copy; 2024 Viberverse.&nbsp;&nbsp;&nbsp;All rights reserved.
+    </footer>
+    <script>
+      const titleTag = document.getElementsByTagName("title")[0];
+      if (localStorage.getItem("tab-name")) {
+        titleTag.innerHTML = localStorage.getItem("tab-name");
+      }
+      const root = document.documentElement.style;
+      if (localStorage.getItem("theme") === "blue") {
+        root.setProperty("--primary-color", "#2A9FD6");
+        root.setProperty("--text-shadow", "#1d7096");
+      } else if (localStorage.getItem("theme") === "yellow") {
+        root.setProperty("--primary-color", "#ffea00");
+        root.setProperty("--text-shadow", "#817700");
+      }
+      document.addEventListener("keydown", (e) => {
+        let panicStorage = localStorage.getItem("panic");
+        let panicHref = localStorage.getItem("panicHref")
+          ? localStorage.getItem("panicHref")
+          : "https://google.com";
+        if (
+          (panicStorage && e.key === panicStorage) ||
+          (!panicStorage && e.key === "`")
+        ) {
+          window.location.href = panicHref;
+        }
+      });
+    </script>
+  </body>
+</html>

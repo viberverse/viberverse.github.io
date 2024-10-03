@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rammerhead | Viberverse</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon">
+  </head>
+  <body>
+    <iframe src="https://florr.ehcp.eu/" class="proxy-frame"></iframe>
+    <script>
+      const titleTag = document.getElementsByTagName("title")[0];
+      if (localStorage.getItem("tab-name")) {
+        titleTag.innerHTML = localStorage.getItem("tab-name");
+      }
+      document.addEventListener("keydown", (e) => {
+        let panicStorage = localStorage.getItem("panic");
+        let panicHref = localStorage.getItem("panicHref")
+          ? localStorage.getItem("panicHref")
+          : "https://google.com";
+        if (
+          (panicStorage && e.key === panicStorage) ||
+          (!panicStorage && e.key === "`")
+        ) {
+          window.location.href = panicHref;
+        }
+      });
+    </script>
+  </body>
+</html>
