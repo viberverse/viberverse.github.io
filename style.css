@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #FF6442;
+  --primary-color: #ff6442;
   --text-shadow: #9a3a25;
 }
 
@@ -225,6 +225,12 @@ ul {
   flex-direction: column;
 }
 
+.chat-window {
+  width: calc(100vw - 160px);
+  height: calc(100vh - 130px) !important;
+  border-radius: 10px;
+}
+
 .game-container iframe {
   width: 100%;
   height: calc(100% - 40px);
@@ -289,7 +295,9 @@ ul {
 }
 
 @media (max-width: 500px) {
-  .nav, .wrap, .game-wrap {
+  .nav,
+  .wrap,
+  .game-wrap {
     padding-inline: 20px;
     gap: 30px;
   }
