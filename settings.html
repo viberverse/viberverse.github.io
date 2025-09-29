@@ -1,116 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Settings | Viberverse</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon" />
-  </head>
-  <body>
-    <nav class="nav">
-      <a href="/" class="logo">
-        <img src="/media/logo.png" />
-      </a>
-      <a href="games.html" class="nav-link">
-        <img src="/media/games.svg" class="nav-link-icon" />
-        <div class="nav-link-name">GAMES</div>
-      </a>
-      <a href="proxies.html" class="nav-link">
-        <img src="/media/proxies.svg" class="nav-link-icon" />
-        <div class="nav-link-name">PROXIES</div>
-      </a>
-      <a href="chat.html" class="nav-link">
-        <img src="/media/chat.svg" class="nav-link-icon" />
-        <div class="nav-link-name">CHAT</div>
-      </a>
-      <a href="settings.html" class="nav-link">
-        <img src="/media/settings.svg" class="nav-link-icon" />
-        <div class="nav-link-name">SETTINGS</div>
-      </a>
-      <a href="about.html" class="nav-link">
-        <img src="/media/info.svg" class="nav-link-icon" />
-        <div class="nav-link-name">ABOUT</div>
-      </a>
-    </nav>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Viberverse</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon">
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="logo"><img src="/media/logo.png" class="logo-img"></a>
+    <a href="games.html" class="nav-link">
+      <img src="/media/games.svg" class="nav-link-icon">
+      <div class="nav-link-name">GAMES</div>
+    </a>
+    <a href="proxies.html" class="nav-link">
+      <img src="/media/proxies.svg" class="nav-link-icon">
+      <div class="nav-link-name">PROXIES</div>
+    </a>
+    <a href="chat.html" class="nav-link">
+      <img src="/media/chat.svg" class="nav-link-icon">
+      <div class="nav-link-name">CHAT</div>
+    </a>
+    <a href="settings.html" class="nav-link">
+      <img src="/media/settings.svg" class="nav-link-icon">
+      <div class="nav-link-name">SETTINGS</div>
+    </a>
+    <a href="about.html" class="nav-link">
+      <img src="/media/info.svg" class="nav-link-icon">
+      <div class="nav-link-name">ABOUT</div>
+    </a>
+  </nav>
 
-    <div class="wrap">
-      <h1 class="title">SETTINGS</h1>
-      <p class="description">Customize Viberverse with Themes, Tab Namer, Panic Key.</p>
+  <div class="wrap">
+    <h1 class="title">SETTINGS</h1>
+    <p class="description">Customize Viberverse with Themes, Tab Namer, and Panic Key.</p>
 
-      <h2 class="subheading">Themes</h2>
-      <select name="themes" id="themes" class="dropdown">
-        <option value="dark">Orange (Default)</option>
-        <option value="blue">Blue</option>
-        <option value="yellow">Yellow</option>
-        <option value="matrix">Matrix</option>
-      </select>
+    <h2 class="subheading">Themes</h2>
+    <select id="themes" class="dropdown">
+      <option value="orange">Orange (Default)</option>
+      <option value="blue">Blue</option>
+      <option value="yellow">Yellow</option>
+      <option value="green">Green</option>
+      <option value="matrix">Matrix</option>
+    </select>
 
-      <h2 class="subheading">Tab Namer</h2>
-      <select name="tab" id="tab" class="dropdown">
-        <option value="Settings | Viberverse">Viberverse (Default)</option>
-        <option value="Home | Schoology">Schoology</option>
-        <option value="Google">Google</option>
-        <option value="New Tab">New Tab</option>
-      </select>
-      <input type="text" class="input" id="tab-input" placeholder="Choose from above or set here" />
+    <h2 class="subheading">Tab Namer</h2>
+    <select id="tab" class="dropdown">
+      <option value="Settings | Viberverse">Viberverse (Default)</option>
+      <option value="Home | Schoology">Schoology</option>
+      <option value="Google">Google</option>
+      <option value="New Tab">New Tab</option>
+    </select>
+    <input type="text" class="input" id="tab-input" placeholder="Choose from above or set here">
 
-      <h2 class="subheading">Panic Key</h2>
-      <input type="text" class="input" id="panic" placeholder="Set your panic key (default is `)" />
-      <input type="text" class="input" id="panic-href" placeholder="Set your panic redirect url" />
-    </div>
+    <h2 class="subheading">Panic Key</h2>
+    <input type="text" class="input" id="panic" placeholder="Set your panic key (default is `)">
+    <input type="text" class="input" id="panic-href" placeholder="Set your panic redirect URL">
+  </div>
 
-    <footer class="footer">
-      &copy; 2024 Viberverse.&nbsp;&nbsp;&nbsp;All rights reserved.
-    </footer>
+  <footer class="footer">
+    &copy; 2024 Viberverse. All rights reserved.
+  </footer>
 
-    <script>
-      const titleTag = document.getElementsByTagName("title")[0];
-      const themeDropdown = document.getElementById("themes");
-      const root = document.documentElement.style;
+  <script>
+    const themeDropdown = document.getElementById("themes");
+    const root = document.documentElement.style;
+    const body = document.body;
 
-      themeDropdown.onchange = () => {
-        if (themeDropdown.value === "blue") {
-          root.setProperty("--primary-color", "#2A9FD6");
-          root.setProperty("--text-shadow", "#1d7096");
-          localStorage.setItem("matrix", "false");
-        } else if (themeDropdown.value === "dark") {
-          root.setProperty("--primary-color", "#FF6442");
-          root.setProperty("--text-shadow", "#9a3a25");
-          localStorage.setItem("matrix", "false");
-        } else if (themeDropdown.value === "yellow") {
-          root.setProperty("--primary-color", "#ffea00");
-          root.setProperty("--text-shadow", "#817700");
-          localStorage.setItem("matrix", "false");
-        } else if (themeDropdown.value === "matrix") {
-          root.setProperty("--primary-color", "#00ff00");
-          root.setProperty("--text-shadow", "#00ff00");
-          localStorage.setItem("matrix", "true");
-        }
-        localStorage.setItem("theme", themeDropdown.value);
-      };
+    themeDropdown.onchange = () => {
+      const val = themeDropdown.value;
+      if(val === "blue"){
+        root.setProperty("--primary-color", "#2A9FD6");
+        root.setProperty("--text-shadow", "#1d7096");
+        body.classList.remove("matrix");
+      } else if(val === "yellow"){
+        root.setProperty("--primary-color", "#ffea00");
+        root.setProperty("--text-shadow", "#817700");
+        body.classList.remove("matrix");
+      } else if(val === "green"){
+        root.setProperty("--primary-color", "#00ff00");
+        root.setProperty("--text-shadow", "#00ff00");
+        body.classList.remove("matrix");
+      } else if(val === "orange"){
+        root.setProperty("--primary-color", "#ff6442");
+        root.setProperty("--text-shadow", "#9a3a25");
+        body.classList.remove("matrix");
+      } else if(val === "matrix"){
+        root.setProperty("--primary-color", "#00ff00");
+        root.setProperty("--text-shadow", "#00ff00");
+        body.classList.add("matrix");
+      }
+      localStorage.setItem("theme", val);
+    };
 
-      if (localStorage.getItem("theme")) themeDropdown.value = localStorage.getItem("theme");
-
-      const tabDropdown = document.getElementById("tab");
-      tabDropdown.onclick = () => {
-        titleTag.innerHTML = tabDropdown.value;
-        localStorage.setItem("tab-name", tabDropdown.value !== "Settings | Viberverse" ? tabDropdown.value : "");
-      };
-
-      const tabInput = document.getElementById("tab-input");
-      tabInput.addEventListener("keyup", () => {
-        titleTag.innerHTML = tabInput.value;
-        localStorage.setItem("tab-name", tabInput.value);
-      });
-
-      const panicInput = document.getElementById("panic");
-      panicInput.addEventListener("keyup", () => { if (panicInput.value.length === 1) localStorage.setItem("panic", panicInput.value); });
-
-      const panicHrefInput = document.getElementById("panic-href");
-      panicHrefInput.addEventListener("keyup", () => {
-        localStorage.setItem("panicHref", panicHrefInput.value.includes("http") ? panicHrefInput.value : "https://" + panicHrefInput.value);
-      });
-    </script>
-  </body>
+    // Load saved theme
+    const savedTheme = localStorage.getItem("theme");
+    if(savedTheme){
+      themeDropdown.value = savedTheme;
+      themeDropdown.onchange();
+    }
+  </script>
+</body>
 </html>
