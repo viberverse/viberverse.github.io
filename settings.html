@@ -6,6 +6,22 @@
     <title>Settings | Viberverse</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon" />
+    <style>
+      .matrix-mode {
+        background: #000 !important;
+        color: #0f0 !important;
+      }
+      .matrix-canvas {
+        display: block;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.6;
+      }
+    </style>
   </head>
   <body>
     <nav class="nav">
@@ -43,6 +59,7 @@
         <option value="dark">Orange (Default)</option>
         <option value="blue">Blue</option>
         <option value="yellow">Yellow</option>
+        <option value="matrix">Matrix</option>
       </select>
       <h2 class="subheading">Tab Namer</h2>
       <select name="tab" id="tab" class="dropdown">
@@ -70,6 +87,7 @@
         id="panic-href"
         placeholder="Set your panic redirect url"
       />
+      <canvas id="matrix-canvas" class="matrix-canvas" style="display:none"></canvas>
     </div>
     <footer class="footer">
       &copy; 2024 Viberverse.&nbsp;&nbsp;&nbsp;All rights reserved.
@@ -86,20 +104,86 @@
       };
       const themeDropdown = document.getElementById("themes");
       const root = document.documentElement.style;
+      const matrixCanvas = document.getElementById("matrix-canvas");
+      let matrixActive = false;
+      let animationFrame;
+
+      function startMatrixRain() {
+        matrixActive = true;
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+        const ctx = matrixCanvas.getContext('2d');
+        const cols = Math.floor(matrixCanvas.width / 20);
+        const yPos = Array(cols).fill(0);
+
+        function matrixRain() {
+          if (!matrixActive) return;
+          ctx.fillStyle = 'rgba(0,0,0,0.05)';
+          ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+          ctx.fillStyle = '#0F0';
+          ctx.font = '20px monospace';
+
+          yPos.forEach((y, ind) => {
+            const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+            ctx.fillText(text, ind * 20, y);
+            if (y > matrixCanvas.height && Math.random() > 0.975) {
+              yPos[ind] = 0;
+            } else {
+              yPos[ind] = y + 20;
+            }
+          });
+          animationFrame = requestAnimationFrame(matrixRain);
+        }
+        matrixRain();
+      }
+
+      function stopMatrixRain() {
+        matrixActive = false;
+        if (matrixCanvas) {
+          const ctx = matrixCanvas.getContext('2d');
+          ctx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        }
+        cancelAnimationFrame(animationFrame);
+      }
+
       themeDropdown.onchange = () => {
         if (themeDropdown.value === "blue") {
+          document.body.classList.remove("matrix-mode");
           root.setProperty("--primary-color", "#2A9FD6");
           root.setProperty("--text-shadow", "#1d7096");
+          matrixCanvas.style.display = "none";
+          stopMatrixRain();
         } else if (themeDropdown.value === "dark") {
+          document.body.classList.remove("matrix-mode");
           root.setProperty("--primary-color", "#FF6442");
           root.setProperty("--text-shadow", "#9a3a25");
+          matrixCanvas.style.display = "none";
+          stopMatrixRain();
         } else if (themeDropdown.value === "yellow") {
+          document.body.classList.remove("matrix-mode");
           root.setProperty("--primary-color", "#ffea00");
           root.setProperty("--text-shadow", "#817700");
+          matrixCanvas.style.display = "none";
+          stopMatrixRain();
+        } else if (themeDropdown.value === "matrix") {
+          document.body.classList.add("matrix-mode");
+          root.setProperty("--primary-color", "#0f0");
+          root.setProperty("--text-shadow", "#003800");
+          matrixCanvas.style.display = "block";
+          startMatrixRain();
         }
         localStorage.setItem("theme", themeDropdown.value);
       };
-      if (localStorage.getItem("theme") === "blue") {
+
+      // Load theme from localStorage on page load:
+      if (localStorage.getItem("theme") === "matrix") {
+        themeDropdown.value = "matrix";
+        document.body.classList.add("matrix-mode");
+        root.setProperty("--primary-color", "#0f0");
+        root.setProperty("--text-shadow", "#003800");
+        matrixCanvas.style.display = "block";
+        startMatrixRain();
+      } else if (localStorage.getItem("theme") === "blue") {
         themeDropdown.value = "blue";
         root.setProperty("--primary-color", "#2A9FD6");
         root.setProperty("--text-shadow", "#1d7096");
@@ -121,7 +205,6 @@
       panicInput.addEventListener("keyup", () => {
         if (panicInput.value.length === 1) {
           localStorage.setItem("panic", panicInput.value);
-          console.log(localStorage.getItem("panic"));
         }
       });
       document.addEventListener("keydown", (e) => {
