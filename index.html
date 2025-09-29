@@ -8,9 +8,13 @@
     <link rel="shortcut icon" href="/media/logo.png" type="image/x-icon" />
   </head>
   <body>
+    <!-- Matrix Background -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Navbar -->
     <nav class="nav">
       <a href="/" class="logo">
-        <img src="/media/logo.png" />
+        <img src="/media/logo.png" class="logo-img" />
       </a>
       <a href="games.html" class="nav-link">
         <img src="/media/games.svg" class="nav-link-icon" />
@@ -33,6 +37,8 @@
         <div class="nav-link-name">ABOUT</div>
       </a>
     </nav>
+
+    <!-- Content -->
     <div class="wrap">
       <div class="message" id="message"></div>
       <div class="links">
@@ -58,9 +64,13 @@
         </a>
       </div>
     </div>
+
+    <!-- Footer -->
     <footer class="footer">
       &copy; 2024 Viberverse.&nbsp;&nbsp;&nbsp;All rights reserved.
     </footer>
+
+    <!-- Scripts -->
     <script>
       const titleTag = document.getElementsByTagName("title")[0];
       if (localStorage.getItem("tab-name")) {
@@ -78,30 +88,12 @@
         "Proxies and Chat coming soon!",
         "Go to the About tab to submit feedback on Viberverse!",
         "Go to the About tab to check out our plans for Viberverse!",
-        "We have over 100 popular web games, with more coming your way!"
+        "We have over 100 popular web games, with more coming your way!",
+        "The world’s best indie unblocked games website."
       ];
-      message.innerHTML = messages[Math.floor(Math.random() * 11)];
-      /*const win = window.open();
-const iframe = win.document.createElement("iframe");
-const iframeSrc = window.location.href;
-win.document.body.style.margin = "0";
-win.document.body.style.height = "100vh";
-iframe.style.border = "none";
-iframe.style.width = "100%";
-iframe.style.height = "100%";
-iframe.style.margin = "0";
-iframe.referrerpolicy = "no-referrer";
-iframe.allow = "fullscreen";
-iframe.src = iframeSrc;
-win.document.body.appendChild(iframe);*/
-      const root = document.documentElement.style;
-      if (localStorage.getItem("theme") === "blue") {
-        root.setProperty("--primary-color", "#2A9FD6");
-        root.setProperty("--text-shadow", "#1d7096");
-      } else if (localStorage.getItem("theme") === "yellow") {
-        root.setProperty("--primary-color", "#ffea00");
-        root.setProperty("--text-shadow", "#817700");
-      }
+      message.innerHTML = messages[Math.floor(Math.random() * messages.length)];
+
+      // Panic button
       document.addEventListener("keydown", (e) => {
         let panicStorage = localStorage.getItem("panic");
         let panicHref = localStorage.getItem("panicHref")
@@ -114,6 +106,50 @@ win.document.body.appendChild(iframe);*/
           window.location.href = panicHref;
         }
       });
+
+      // Matrix effect
+      const canvas = document.getElementById("matrix");
+      const ctx = canvas.getContext("2d");
+
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+
+      const letters =
+        "アァイィウヴエェオカガキギクグケゲコゴサザシジスズセゼソゾABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split(
+          ""
+        );
+
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+
+      for (let x = 0; x < columns; x++) drops[x] = 1;
+
+      function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#0F0";
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = letters[Math.floor(Math.random() * letters.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(draw, 33);
+
+      window.addEventListener("resize", () => {
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+      });
     </script>
   </body>
 </html>
+
