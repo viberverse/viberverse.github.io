@@ -114,6 +114,38 @@ win.document.body.appendChild(iframe);*/
           window.location.href = panicHref;
         }
       });
+      function startMatrixRain() {
+  const canvas = document.getElementById('matrix-canvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+  const cols = Math.floor(canvas.width / 20);
+  const yPos = Array(cols).fill(0);
+
+  function matrixRain() {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#0F0';
+    ctx.font = '20px monospace';
+
+    yPos.forEach((y, ind) => {
+      const text = String.fromCharCode(0x30A0 + Math.random() * 96);
+      ctx.fillText(text, ind * 20, y);
+      if (y > canvas.height && Math.random() > 0.975) {
+        yPos[ind] = 0;
+      } else {
+        yPos[ind] = y + 20;
+      }
+    });
+    requestAnimationFrame(matrixRain);
+  }
+  matrixRain();
+}
+
+if(document.body.classList.contains('matrix-mode')){
+  startMatrixRain();
+}
+
     </script>
   </body>
 </html>
