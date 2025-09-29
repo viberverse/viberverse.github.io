@@ -73,9 +73,6 @@
     <!-- Scripts -->
     <script>
       const titleTag = document.getElementsByTagName("title")[0];
-      if (localStorage.getItem("tab-name")) {
-        titleTag.innerHTML = localStorage.getItem("tab-name");
-      }
       const message = document.getElementById("message");
       const messages = [
         "There's only proxies and hit games on Viberverse!",
@@ -93,63 +90,66 @@
       ];
       message.innerHTML = messages[Math.floor(Math.random() * messages.length)];
 
-      // Panic button
+      // Panic key
       document.addEventListener("keydown", (e) => {
         let panicStorage = localStorage.getItem("panic");
-        let panicHref = localStorage.getItem("panicHref")
-          ? localStorage.getItem("panicHref")
-          : "https://google.com";
-        if (
-          (panicStorage && e.key === panicStorage) ||
-          (!panicStorage && e.key === "`")
-        ) {
+        let panicHref = localStorage.getItem("panicHref") || "https://google.com";
+        if ((panicStorage && e.key === panicStorage) || (!panicStorage && e.key === "`")) {
           window.location.href = panicHref;
         }
       });
 
-      // Matrix effect
-      const canvas = document.getElementById("matrix");
-      const ctx = canvas.getContext("2d");
+      // Matrix theme
+      const matrixEnabled = localStorage.getItem("matrix") === "true";
+      if (matrixEnabled) {
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
 
-      canvas.height = window.innerHeight;
-      canvas.width = window.innerWidth;
-
-      const letters =
-        "アァイィウヴエェオカガキギクグケゲコゴサザシジスズセゼソゾABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split(
-          ""
-        );
-
-      const fontSize = 14;
-      const columns = canvas.width / fontSize;
-      const drops = [];
-
-      for (let x = 0; x < columns; x++) drops[x] = 1;
-
-      function draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "#0F0";
-        ctx.font = fontSize + "px monospace";
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = letters[Math.floor(Math.random() * letters.length)];
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        }
-      }
-
-      setInterval(draw, 33);
-
-      window.addEventListener("resize", () => {
         canvas.height = window.innerHeight;
         canvas.width = window.innerWidth;
-      });
+
+        const letters = "アァイィウヴエェオカガキギクグケゲコゴサザシジスズセゼソゾABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array.from({length: columns}, () => 1);
+
+        function draw() {
+          ctx.fillStyle = "rgba(0,0,0,0.05)";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = "#0F0";
+          ctx.font = fontSize + "px monospace";
+
+          for (let i = 0; i < drops.length; i++) {
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            drops[i] = drops[i] * fontSize > canvas.height && Math.random() > 0.975 ? 0 : drops[i] + 1;
+          }
+        }
+
+        setInterval(draw, 33);
+        window.addEventListener("resize", () => {
+          canvas.height = window.innerHeight;
+          canvas.width = window.innerWidth;
+        });
+      } else {
+        document.getElementById("matrix").style.display = "none";
+      }
+
+      // Theme colors (non-matrix)
+      const root = document.documentElement.style;
+      const theme = localStorage.getItem("theme");
+      if (theme && theme !== "matrix") {
+        if (theme === "blue") {
+          root.setProperty("--primary-color", "#2A9FD6");
+          root.setProperty("--text-shadow", "#1d7096");
+        } else if (theme === "yellow") {
+          root.setProperty("--primary-color", "#ffea00");
+          root.setProperty("--text-shadow", "#817700");
+        } else {
+          root.setProperty("--primary-color", "#FF6442");
+          root.setProperty("--text-shadow", "#9a3a25");
+        }
+      }
     </script>
   </body>
 </html>
-
